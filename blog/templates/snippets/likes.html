@@ -1,0 +1,9 @@
+{% load static %}
+<div class="flex items-center gap-4">
+    <div class="flex items-center gap-1">
+        <button class="btn btn-link" style="background-color: black; color: white; text-decoration: none;" hx-get="{% url 'like-post' post.id %}" hx-target="closest div" hx-swap="outerHTML">
+            Like
+        </button>
+        <b>{{ post.likes.count }}</b>
+    </div>
+</div>

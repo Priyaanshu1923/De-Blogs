@@ -1,0 +1,161 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% block content %}
+<section class="hero">
+  <div class="container">
+    <div class="card mb-3 shadow-sm">
+      <div class="row g-0">
+        <div class="col-md-4">
+          {% if latest_post.cropped_image_420x420 %}
+            <img src="{{ latest_post.cropped_image_420x420.url }}" alt="Thumbnail" class="img-fluid rounded">
+          {% endif %}
+        </div>
+        <div class="col-md-8">
+          <div class="card-body mx-4">
+            <p class="card-text text-muted">
+              <a href="{% url 'profile' latest_post.author %}" class="tiny text-decoration-none small">
+                {{ latest_post.author }}
+              </a> • {{ latest_post.date_posted|date:'F d, Y' }}
+            </p>
+            <h2 class="display-5 fw-bold">
+              <a href="{% url 'post-detail' latest_post.id %}" style="text-decoration: none; color: inherit;">
+                {{ latest_post.title|truncatechars:80 }}
+              </a>
+            </h2>
+            <p class="card-text">
+              <a href="{% url 'post-detail' latest_post.id %}" style="text-decoration: none; color: inherit;">
+                {{ latest_post.get_cleaned_content|safe|truncatechars:300 }}
+              </a>
+            </p>
+            <p class="card-text text-muted">
+              <a href="{% url 'category_posts' latest_post.category.name %}" class="tiny text-decoration-none small">
+                {{ latest_post.category }}
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="last-posts">
+  <div class="container">
+    <h2 class="display-5 fw-bold">Last Posts</h2>
+  </div>
+  <div class="container">
+    <div class="row">
+      {% for post in posts|slice:"0:4" %}
+      <div class="col-md-3 mt-4">
+        <div class="card">
+          {% if post.cropped_image_420x420 %}
+            <img src="{{ post.cropped_image_420x420.url }}" class="card-img-top custom-image" alt="Thumbnail">
+          {% endif %}
+          <div class="card-body">
+            <p class="card-text text-muted">
+              <a href="{% url 'profile' post.author %}" class="tiny text-decoration-none small">
+                {{ post.author }}
+              </a> • {{ post.date_posted|date:'F d, Y' }}
+            </p>
+            <h5 class="card-title">
+              <a href="{% url 'post-detail' post.id %}" style="text-decoration: none; color: inherit;">
+                {{ post.title|truncatechars:55 }}
+              </a>
+            </h5>
+            <p class="card-text">
+              <a href="{% url 'post-detail' post.id %}" style="text-decoration: none; color: inherit;">
+                {{ post.get_cleaned_content|safe|truncatechars:100 }}
+              </a>
+            </p>
+            <p class="card-text text-muted">
+              <a href="{% url 'category_posts' post.category.name %}" class="tiny text-decoration-none small">
+                {{ post.category }}
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="hero">
+  <div class="container">
+    <div class="card mb-3">
+      <div class="row g-0">
+        <div class="col-md-4">
+          {% if most_popular_post.cropped_image_420x420 %}
+            <img src="{{ most_popular_post.cropped_image_420x420.url }}" alt="Thumbnail" class="img-fluid rounded">
+          {% endif %}
+        </div>
+        <div class="col-md-8">
+          <div class="card-body mx-4">
+            <p class="card-text text-muted">
+              <a href="{% url 'profile' most_popular_post.author %}" class="tiny text-decoration-none small">
+                {{ most_popular_post.author }}
+              </a> • {{ most_popular_post.date_posted|date:'F d, Y' }}
+            </p>
+            <h2 class="display-5 fw-bold">
+              <a href="{% url 'post-detail' most_popular_post.id %}" style="text-decoration: none; color: inherit;">
+                {{ most_popular_post.title|truncatechars:80 }}
+              </a>
+            </h2>
+            <p class="card-text">
+              <a href="{% url 'post-detail' most_popular_post.id %}" style="text-decoration: none; color: inherit;">
+                {{ most_popular_post.get_cleaned_content|safe|truncatechars:300 }}
+              </a>
+            </p>
+            <p class="card-text text-muted">
+              <a href="{% url 'category_posts' most_popular_post.category.name %}" class="tiny text-decoration-none small">
+                {{ most_popular_post.category }} • {{ most_popular_post.reading_time }} min read
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="last-posts">
+  <div class="container">
+    <h2 class="display-5 fw-bold">Popular Posts</h2>
+  </div>
+  <div class="container">
+    <div class="row">
+      {% for post in liked_posts %}
+      <div class="col-md-3 mt-4">
+        <div class="card">
+          {% if post.cropped_image_420x420 %}
+            <img src="{{ post.cropped_image_420x420.url }}" class="card-img-top custom-image" alt="Thumbnail">
+          {% endif %}
+          <div class="card-body">
+            <p class="card-text text-muted">
+              <a href="{% url 'profile' post.author %}" class="tiny text-decoration-none small">
+                {{ post.author }}
+              </a> • {{ post.date_posted|date:'F d, Y' }}
+            </p>
+            <h5 class="card-title">
+              <a href="{% url 'post-detail' post.id %}" style="text-decoration: none; color: inherit;">
+                {{ post.title|truncatechars:55 }}
+              </a>
+            </h5>
+            <p class="card-text">
+              <a href="{% url 'post-detail' post.id %}" style="text-decoration: none; color: inherit;">
+                {{ post.get_cleaned_content|safe|truncatechars:100 }}
+              </a>
+            </p>
+            <p class="card-text text-muted">
+              <a href="{% url 'category_posts' post.category.name %}" class="tiny text-decoration-none small">
+                {{ post.category }}
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock content %}

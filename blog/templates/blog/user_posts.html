@@ -1,0 +1,64 @@
+{% extends "blog/base.html" %}
+{% block content %}
+
+<body>
+  <section id="profile">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-9 col-xl-7 mx-auto">
+          <div class="card shadow-sm">
+            <!-- Profile content -->
+            <div class="profile-header" style="background-color: FFFFFF;">
+              <div class="profile-image">
+                <img src="{{ profile.image.url }}" alt="Profile Image">
+              </div>
+              <div class="profile-details">
+                <h5>{{ view.kwargs.username }}</h5>
+                <p>Joined on {{ profile.user.date_joined|date:'M d, Y' }}</p>
+                {% if user.is_authenticated and user.username == view.kwargs.username %}
+                  <a href="{% url 'settings' %}" class="btn btn-dark">Edit Profile</a>
+                {% else %}
+                  <button class="btn btn-dark">Follow</button>
+                {% endif %}
+              </div>
+            </div>
+            <div class="profile-stats">
+              <div>
+                <p class="h5">{{ page_obj.paginator.count }}</p>
+                <p class="text-muted">Posts</p>
+              </div>
+              
+            </div>
+
+            <!-- About content -->
+            <div class="profile-about">
+              <p class="lead mb-1">About</p>
+              <div class="about-bio" style="background-color: #f8f9fa;">
+                <p class="font-italic">{{ profile.bio }}</p>
+              </div>
+            </div>
+
+            <!-- Posts content -->
+            <div class="profile-posts">
+              <div class="d-flex justify-content-between align-items-center">
+                <p class="lead mb-0">Recent posts</p>
+                <p><a href="#!" class="text-muted">Show all</a></p>
+              </div>
+              {% for post in posts %}
+              <div class="post-card mb-4">
+                <h3><a class="post-title-link" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h3>
+                <p class="small mb-0">
+                  <strong>{{ post.category }}</strong> • {{ post.date_posted|date:'F d, Y' }}
+                </p>
+                <p class="post-description">{{ post.get_cleaned_content|safe|truncatechars:100 }}</p>
+               
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+{% endblock content %}

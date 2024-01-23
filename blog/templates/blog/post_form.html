@@ -1,0 +1,29 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+<body>
+    <section>
+        <div class="container py-3">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h2 class="card-title">Create a New Post</h2>
+                            <form method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ form.header_image|as_crispy_field }}
+                                {{ form.title|as_crispy_field }}
+                                {{ form.content|as_crispy_field }}
+                                {{ form.category|as_crispy_field }}
+                                <button type="submit" class="btn btn-primary">Publish</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+{% endblock content %}
