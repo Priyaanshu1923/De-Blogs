@@ -1,7 +1,6 @@
 ﻿alembic==1.13.1
 aniso8601==9.0.1
 argcomplete==1.10.3
-asgiref==3.2.7
 attrs==23.2.0
 backports.zoneinfo==0.2.1
 beautifulsoup4==4.8.2
