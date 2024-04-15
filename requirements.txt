@@ -70,7 +70,6 @@ pycryptodome==3.20.0
 Pygments==2.17.2
 PyJWT==2.1.0
 PyPDF2==3.0.1
-pypiwin32==223
 pytest==7.4.0
 python-dateutil==2.8.2
 python-docx==1.1.0
